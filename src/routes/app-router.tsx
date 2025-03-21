@@ -1,14 +1,18 @@
 import Stories from "@/pages/Stories";
 import StoryView from "@/pages/StoryView";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { createBrowserRouter, RouterProvider } from "react-router";
+
+const routes = createBrowserRouter([
+  {
+    index: true,
+    element: <Stories />,
+  },
+  {
+    path: ":storyId/:commentId?",
+    element: <StoryView />,
+  },
+]);
 
 export default function AppRouter() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Stories />} />
-        <Route path="/:storyId/:commentId?" element={<StoryView />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={routes} />;
 }

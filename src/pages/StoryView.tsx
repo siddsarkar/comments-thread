@@ -1,7 +1,9 @@
 import { LinkPreviewImage } from "@/components/link-preview";
 import { Separator } from "@/components/ui/separator";
 import { alpha, getColorForDepth } from "@/lib/color-utils";
-import { age, parseLinks } from "@/lib/utils";
+import { age } from "@/lib/utils";
+import { fetchItem } from "@/services/hackernews-api";
+import { CommentNode, HNItem } from "@/types/hackernews";
 import { decode } from "html-entities";
 import {
   ChevronDown,
@@ -23,9 +25,6 @@ import React, {
   useState,
 } from "react";
 import { Link, useParams } from "react-router";
-
-import { fetchItem } from "../services/hackernews-api";
-import { CommentNode, HNItem } from "../types/hackernews";
 
 interface StoryProps {
   story: HNItem;
@@ -127,7 +126,7 @@ function Comment({
   return (
     <div className="border-l-4 pl-4 mb-2" style={containerStyle}>
       <div className="flex items-center gap-2">
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 overflow-hidden pr-2">
           <div
             onClick={() => setIsExpanded(!isExpanded)}
             className="flex items-center gap-2"
@@ -149,9 +148,9 @@ function Comment({
           {isExpanded && (
             <div className="flex w-full flex-1 max-w-full overflow-hidden">
               <div
-                className="mt-1 pr-2 pb-2 text-sm break-before-auto whitespace-pre-line"
+                className="mt-1 pr-2 pb-2 text-sm prose dark:prose-invert max-w-full prose-a:no-underline prose-a:text-lime-200"
                 dangerouslySetInnerHTML={{
-                  __html: decode(parseLinks(comment.text || "")),
+                  __html: decode(comment.text || ""),
                 }}
               />
             </div>
@@ -205,7 +204,7 @@ function Comment({
   );
 }
 
-const INITIAL_DEPTH = 5;
+const INITIAL_DEPTH = 3;
 const INITIAL_ITEMS_PER_DEPTH = 5;
 
 let fetched = 0;
@@ -642,7 +641,9 @@ const StoryView = withStoryView(() => {
           )}
         </div>
       ) : (
-        <p>No comments yet</p>
+        <p className="text-center text-muted-foreground py-4">
+          No comments yet
+        </p>
       )}
     </div>
   );

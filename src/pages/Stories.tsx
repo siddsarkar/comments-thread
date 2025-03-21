@@ -1,9 +1,10 @@
+import { alpha, getColorForDepth } from "@/lib/color-utils";
+import { Story } from "@/pages/StoryView";
+import { fetchItem, fetchTopStories } from "@/services/hackernews-api";
+import { HNItem } from "@/types/hackernews";
 import { ChevronDown, Newspaper } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { fetchItem, fetchTopStories } from "../services/hackernews-api";
-import { HNItem } from "../types/hackernews";
-import { Story } from "./StoryView";
 
 const INITIAL_ITEMS = 10;
 
@@ -100,7 +101,11 @@ function Stories() {
 
       <div className="space-y-4">
         {stories.map((story) => (
-          <div key={story.id} className="bg-muted-foreground/5 pt-4">
+          <div
+            key={story.id}
+            className="pt-4"
+            style={{ backgroundColor: alpha(getColorForDepth(0), 0.1) }}
+          >
             <Story story={story} onClick={() => navigate(`/${story.id}`)} />
           </div>
         ))}

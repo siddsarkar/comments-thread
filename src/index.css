@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -137,9 +138,4 @@
   body {
     @apply bg-background text-foreground;
   }
-}
-
-.link,
-a {
-  @apply text-pink-400;
 }

@@ -1,8 +1,6 @@
+import defaultPlaceholder from "@/assets/placeholder.webp";
 import { cn } from "@/lib/utils";
 import { ComponentProps, useEffect, useState } from "react";
-
-const defaultPlaceholder =
-  "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png";
 
 function LinkPreviewImage({ className, src, ...props }: ComponentProps<"img">) {
   const [preview, setPreview] = useState<string>(defaultPlaceholder);
