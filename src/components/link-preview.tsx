@@ -1,17 +1,23 @@
 import defaultPlaceholder from "@/assets/placeholder.webp";
 import { cn } from "@/lib/utils";
-import { ComponentProps, useEffect, useState } from "react";
+import { ComponentProps, memo, useEffect, useState } from "react";
 
-function LinkPreviewImage({ className, src, ...props }: ComponentProps<"img">) {
+const LinkPreviewImage = memo(function LinkPreviewImage({
+  className,
+  src,
+  ...props
+}: ComponentProps<"img">) {
   const [preview, setPreview] = useState<string>(defaultPlaceholder);
 
   useEffect(() => {
     const fetchPreviewImage = async () => {
       fetch(`https://api.microlink.io?url=${src}`)
         .then((response) => response.json())
-        .then((data) =>
-          setPreview(data?.data?.image?.url ?? defaultPlaceholder)
-        );
+        .then((data) => {
+          if (data.data?.image?.url) {
+            setPreview(data.data.image.url);
+          }
+        });
     };
 
     fetchPreviewImage();
@@ -28,6 +34,6 @@ function LinkPreviewImage({ className, src, ...props }: ComponentProps<"img">) {
       {...props}
     />
   );
-}
+});
 
 export { LinkPreviewImage };

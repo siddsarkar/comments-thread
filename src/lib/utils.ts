@@ -52,3 +52,5 @@ export function parseLinks(text: string) {
     (url) => `<a href="${url}" className="link" target="_blank">${url}</a>`
   );
 }
+
+export const formattedDate = (time: number) => age(new Date(time * 1000));

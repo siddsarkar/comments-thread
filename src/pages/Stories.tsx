@@ -3,7 +3,7 @@ import { Story } from "@/pages/StoryView";
 import { fetchItem, fetchTopStories } from "@/services/hackernews-api";
 import { HNItem } from "@/types/hackernews";
 import { ChevronDown, Newspaper } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 const INITIAL_ITEMS = 10;
@@ -68,6 +68,13 @@ function Stories() {
     setIsLoadingMore(false);
   }
 
+  const handleStoryClick = useCallback(
+    (story: HNItem) => {
+      navigate(`/${story.id}`);
+    },
+    [navigate]
+  );
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -106,7 +113,7 @@ function Stories() {
             className="pt-4"
             style={{ backgroundColor: alpha(getColorForDepth(0), 0.1) }}
           >
-            <Story story={story} onClick={() => navigate(`/${story.id}`)} />
+            <Story story={story} onClick={() => handleStoryClick(story)} />
           </div>
         ))}
 

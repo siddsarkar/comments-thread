@@ -1,4 +1,4 @@
-enum HNItemType {
+export enum HNItemType {
   Story = "story",
   Job = "job",
   Poll = "poll",

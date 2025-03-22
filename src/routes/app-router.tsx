@@ -1,5 +1,5 @@
 import Stories from "@/pages/Stories";
-import StoryView from "@/pages/StoryView";
+import { ExampleComponent } from "@/pages/StoryViewV2";
 import { createBrowserRouter, RouterProvider } from "react-router";
 
 const routes = createBrowserRouter([
@@ -9,7 +9,7 @@ const routes = createBrowserRouter([
   },
   {
     path: ":storyId/:commentId?",
-    element: <StoryView />,
+    element: <ExampleComponent />,
   },
 ]);
 
