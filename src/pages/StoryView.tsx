@@ -3,7 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import { alpha, getColorForDepth } from "@/lib/color-utils";
 import { formattedDate } from "@/lib/utils";
 import { fetchItem } from "@/services/hackernews-api";
-import { CommentNode, HNItem } from "@/types/hackernews";
+import { CommentNode, Item } from "@/types/hackernews";
 import { decode } from "html-entities";
 import {
   ChevronDown,
@@ -38,7 +38,7 @@ let total = 1,
   fetched = 0;
 
 type StoryContextType = {
-  story: HNItem | null;
+  story: Item | null;
   comments: CommentNode[];
   isLoading: boolean;
   isLoadingMore: boolean;
@@ -194,7 +194,7 @@ const findCommentAndDepth = (
 };
 
 function StoryProvider({ children }: { children: React.ReactNode }) {
-  const [story, setStory] = useState<HNItem | null>(null);
+  const [story, setStory] = useState<Item | null>(null);
   const [comments, setComments] = useState<CommentNode[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
@@ -387,7 +387,7 @@ const PercentLoader: React.FC = () => {
 };
 
 type StoryProps = {
-  story: HNItem;
+  story: Item;
   onClick?: () => void;
 };
 
@@ -410,7 +410,7 @@ const Story: React.FC<StoryProps> = memo((props) => {
       <div>
         <Separator />
         <div className="flex h-12 items-center justify-around space-x-4 text-sm px-4">
-          <div>{story.score} points</div>
+          <div>{story.score} Points</div>
           <Separator orientation="vertical" />
           <div onClick={onClick} className="cursor-pointer">
             {story.descendants} Comments

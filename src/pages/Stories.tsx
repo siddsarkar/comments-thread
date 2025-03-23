@@ -1,18 +1,18 @@
 import { alpha, getColorForDepth } from "@/lib/color-utils";
 import { Story } from "@/pages/StoryView";
 import { fetchItem, fetchTopStories } from "@/services/hackernews-api";
-import { HNItem } from "@/types/hackernews";
-import { ChevronDown, Newspaper } from "lucide-react";
+import { Item } from "@/types/hackernews";
+import { ChevronDown, Plus } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 const INITIAL_ITEMS = 10;
 
-async function fetchStories(storyIds: number[] = []): Promise<HNItem[]> {
+async function fetchStories(storyIds: number[] = []): Promise<Item[]> {
   const stories = await Promise.all(
     storyIds.slice(0, INITIAL_ITEMS).map(async (id) => {
       const item = await fetchItem(id);
-      return item as HNItem;
+      return item as Item;
     })
   );
   return stories;
@@ -22,7 +22,7 @@ function Stories() {
   const navigate = useNavigate();
 
   const [storyIds, setStoryIds] = useState<number[]>([]);
-  const [stories, setStories] = useState<HNItem[]>([]);
+  const [stories, setStories] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -69,7 +69,7 @@ function Stories() {
   }
 
   const handleStoryClick = useCallback(
-    (story: HNItem) => {
+    (story: Item) => {
       navigate(`/${story.id}`);
     },
     [navigate]
@@ -85,8 +85,29 @@ function Stories() {
 
   if (!stories.length) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div>No stories found</div>
+      <div className="max-w-2xl mx-auto">
+        <header>
+          <div className="max-w-4xl mx-auto px-4 py-4">
+            <div className="flex items-center justify-between">
+              <div className=""></div>
+              {/* <Link to="/">
+                <div className="flex items-center gap-2">
+                  <Newspaper />
+                  <h1 className="text-xl font-bold">HNR</h1>
+                </div>
+              </Link> */}
+              <Link to="/new">
+                <div className="flex items-center gap-2">
+                  <Plus />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </header>
+
+        <div className="flex items-center justify-center p-16">
+          <div>No stories found</div>
+        </div>
       </div>
     );
   }
@@ -96,10 +117,16 @@ function Stories() {
       <header>
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/">
+            <div className=""></div>
+            {/* <Link to="/">
               <div className="flex items-center gap-2">
                 <Newspaper />
                 <h1 className="text-xl font-bold">HNR</h1>
+              </div>
+            </Link> */}
+            <Link to="/new">
+              <div className="flex items-center gap-2">
+                <Plus />
               </div>
             </Link>
           </div>

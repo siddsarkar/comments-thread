@@ -1,7 +1,7 @@
 import { alpha, getColorForDepth } from "@/lib/color-utils";
 import { formattedDate } from "@/lib/utils";
 import { fetchItem } from "@/services/hackernews-api";
-import { CommentNode, HNItem } from "@/types/hackernews";
+import { CommentNode, Item } from "@/types/hackernews";
 import { ImmutableObject, State, useHookstate } from "@hookstate/core";
 import { decode } from "html-entities";
 import {
@@ -13,7 +13,7 @@ import {
   User,
 } from "lucide-react";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { Story } from "./StoryView";
 
 const INITIAL_DEPTH = 3;
@@ -64,6 +64,7 @@ async function fetchComments(
 
 export const ExampleComponent = () => {
   const { storyId } = useParams();
+  const navigate = useNavigate();
 
   const fetchResource = () => fetchItem(Number(storyId));
   const state = useHookstate(fetchResource);
@@ -99,7 +100,12 @@ export const ExampleComponent = () => {
           backgroundColor: alpha(getColorForDepth(0), 0.1),
         }}
       >
-        <Story story={state.value as HNItem} />
+        <Story
+          story={state.value as Item}
+          onClick={() => {
+            navigate(`/${storyId}/new`);
+          }}
+        />
       </div>
       <StoryComments kids={state.value.kids ?? []} />
       <br />
@@ -201,11 +207,13 @@ function NodeComment(props: { nameState: State<CommentNode>; depth: number }) {
           )}
           {isExpanded && (
             <div className="flex items-center gap-4 pb-2 text-sm">
-              <span className="flex items-center gap-2 cursor-pointer text-muted-foreground">
-                <MessageSquare size={16} />
-                <span>reply</span>
-                {/* <NodeByEditor nameState={state.by} /> */}
-              </span>
+              <Link to={`/${comment.id}/new`} className="text-muted-foreground">
+                <span className="flex items-center gap-2 cursor-pointer text-muted-foreground">
+                  <MessageSquare size={16} />
+                  <span>reply</span>
+                  {/* <NodeByEditor nameState={state.by} /> */}
+                </span>
+              </Link>
             </div>
           )}
 

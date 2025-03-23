@@ -53,4 +53,4 @@ export function parseLinks(text: string) {
   );
 }
 
-export const formattedDate = (time: number) => age(new Date(time * 1000));
+export const formattedDate = (time: number) => age(new Date(time));

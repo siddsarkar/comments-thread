@@ -1,4 +1,4 @@
-export enum HNItemType {
+export enum ItemType {
   Story = "story",
   Job = "job",
   Poll = "poll",
@@ -6,11 +6,11 @@ export enum HNItemType {
   Comment = "comment",
 }
 
-export interface HNItem {
+export interface Item {
   // Required
   id: number;
   time: number;
-  type: HNItemType;
+  type: ItemType;
 
   // Optional
   deleted?: boolean;
@@ -27,7 +27,7 @@ export interface HNItem {
   descendants?: number;
 }
 
-export interface CommentNode extends HNItem {
+export interface CommentNode extends Item {
   children: CommentNode[];
   isLoading: boolean;
   hasMore: boolean;

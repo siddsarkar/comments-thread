@@ -1,16 +1,17 @@
-import { HNItem } from "@/types/hackernews";
+import { Item } from "@/types/hackernews";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://hacker-news.firebaseio.com/v0",
+  baseURL:
+    "https://comment-thread-ad39f-default-rtdb.asia-southeast1.firebasedatabase.app",
 });
 
-export async function fetchItem(id: number): Promise<HNItem> {
-  const response = await api.get(`/item/${id}.json`);
+export async function fetchItem(id: number): Promise<Item> {
+  const response = await api.get(`/items/${id}.json`);
   return response.data;
 }
 
 export async function fetchTopStories(): Promise<number[]> {
-  const response = await api.get(`/topstories.json`);
-  return response.data;
+  const response = await api.get(`/latest.json`);
+  return response.data ?? [];
 }
