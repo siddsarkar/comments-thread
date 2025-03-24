@@ -54,12 +54,12 @@ export const Comment = (props: {
                 <User size={16} />
               </div>
               <span className="font-medium">
-                {/* {state.deleted.get()
+                {state.deleted.get()
                   ? "[deleted]"
                   : state.dead.get()
                   ? "[dead]"
-                  : state.by.get()} */}
-                {new Date().toISOString()}
+                  : state.by.get()}
+                {/* {new Date().toISOString()} */}
               </span>
               <span>•</span>
               <span>{formattedDate(state.time.get())}</span>
@@ -82,7 +82,10 @@ export const Comment = (props: {
               </div>
 
               <div className="flex items-center gap-4 pb-2 text-sm">
-                <Link to={`/${state.id}/new`} className="text-muted-foreground">
+                <Link
+                  to={`/${state.id.get()}/new`}
+                  className="text-muted-foreground"
+                >
                   <span className="flex items-center gap-2 cursor-pointer text-muted-foreground">
                     <MessageSquare size={16} />
                     <span>reply</span>
