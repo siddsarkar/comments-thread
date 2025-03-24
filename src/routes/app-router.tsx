@@ -2,8 +2,8 @@ import MainLayout from "@/layouts/main-layout";
 import Create from "@/pages/Create";
 import { ProfileForm } from "@/pages/CreateUser";
 import Login from "@/pages/Login";
-import Stories from "@/pages/Stories";
-import { ExampleComponent } from "@/pages/StoryViewV2";
+import { TopStories } from "@/pages/Stories";
+import { StoryDetailsPage } from "@/pages/StoryDetails/StoryDetailsPage";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import ProtectedRoute from "./protected-route";
 
@@ -21,7 +21,7 @@ const routes = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Stories />,
+            element: <TopStories />,
           },
           {
             path: "new",
@@ -38,7 +38,7 @@ const routes = createBrowserRouter([
           },
           {
             path: ":commentId?",
-            element: <ExampleComponent />,
+            element: <StoryDetailsPage />,
           },
         ],
       },

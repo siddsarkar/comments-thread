@@ -113,15 +113,6 @@ export const ExampleComponent = () => {
   );
 };
 
-// function NodeByEditor(props: { nameState: State<string | undefined> }) {
-//   const state = useHookstate(props.nameState);
-//   return (
-//     <>
-//       <input value={state.get()} onChange={(e) => state.set(e.target.value)} />
-//     </>
-//   );
-// }
-
 function NodeComment(props: { nameState: State<CommentNode>; depth: number }) {
   const state = useHookstate(props.nameState);
   const [isExpanded, setIsExpanded] = useState(true);
@@ -130,14 +121,7 @@ function NodeComment(props: { nameState: State<CommentNode>; depth: number }) {
 
   if (comment.deleted || comment.dead) {
     return (
-      <div
-        // className="border-l-2 pl-4 mb-2"
-        // style={{
-        //   borderColor: getColorForDepth(props.depth),
-        //   backgroundColor: alpha(getColorForDepth(props.depth), 0.1),
-        // }}
-        className="pl-4 mb-2"
-      >
+      <div className="pl-4 mb-2">
         <div className="flex items-center gap-2">
           <div className="flex flex-1 items-center gap-2 text-sm text-muted-foreground">
             <div className="flex-shrink-0 py-2">
