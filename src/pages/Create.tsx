@@ -126,7 +126,7 @@ export function ReplyForm({ parentId }: { parentId: string }) {
   }
 
   return (
-    <div className="max-w-lg mx-auto py-8">
+    <div className="max-w-lg mx-auto py-8 px-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -224,7 +224,7 @@ export function StoryForm() {
   }
 
   return (
-    <div className="max-w-lg mx-auto py-8">
+    <div className="max-w-lg mx-auto py-8 px-4">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
