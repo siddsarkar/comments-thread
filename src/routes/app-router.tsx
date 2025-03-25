@@ -2,6 +2,7 @@ import MainLayout from "@/layouts/main-layout";
 import Create from "@/pages/Create";
 import { ProfileForm } from "@/pages/CreateUser";
 import Login from "@/pages/Login";
+import { Profile } from "@/pages/Profile";
 import { TopStories } from "@/pages/Stories";
 import { StoryDetailsPage } from "@/pages/StoryDetails/StoryDetailsPage";
 import { createBrowserRouter, RouterProvider } from "react-router";
@@ -26,6 +27,10 @@ const routes = createBrowserRouter([
           {
             path: "new",
             element: <Create />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },

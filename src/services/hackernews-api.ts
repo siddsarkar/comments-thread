@@ -1,4 +1,4 @@
-import { Item } from "@/types/hackernews";
+import { Item, UserProfile } from "@/types/hackernews";
 import axios from "axios";
 
 const api = axios.create({
@@ -14,4 +14,9 @@ export async function fetchItem(id: number): Promise<Item> {
 export async function fetchTopStories(): Promise<number[]> {
   const response = await api.get(`/latest.json`);
   return response.data ?? [];
+}
+
+export async function fetchProfile(uid: string): Promise<UserProfile> {
+  const response = await api.get(`/users/${uid}.json`);
+  return response.data;
 }

@@ -18,6 +18,9 @@ export const Story: React.FC<StoryProps> = memo((props) => {
 
   const { user } = useAuth();
   const scoreState = useHookstate(story.score);
+
+  const [votes, setVotes] = React.useState(story.votes || {});
+
   const loadingScoreState = useHookstate(false);
 
   const handleLikeStory = async (storyId: number) => {
@@ -56,18 +59,23 @@ export const Story: React.FC<StoryProps> = memo((props) => {
 
         // Update the score in the local state
         scoreState.set(result.snapshot.val().score);
+        setVotes(result.snapshot.val().votes);
+        // votesState.set(result.snapshot.val().votes);
       })
       .finally(() => {
         loadingScoreState.set(false);
       });
   };
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="space-y-4">
       <div className="px-4">
         <LinkPreviewImage src={story.url} />
       </div>
-
       <div className="space-y-1 px-4">
         <h4 className="text-sm font-medium leading-normal">{story.title}</h4>
         <p className="text-sm text-muted-foreground">
@@ -82,6 +90,9 @@ export const Story: React.FC<StoryProps> = memo((props) => {
             disabled={loadingScoreState.get()}
             className="disabled:opacity-50"
             onClick={() => handleLikeStory(story.id)}
+            style={{
+              color: votes[user!.uid] ? "teal" : "inherit",
+            }}
           >
             {scoreState.get() || 0} Points
           </button>
