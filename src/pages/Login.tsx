@@ -57,7 +57,12 @@ export function LoginForm({
 const Login = () => {
   const { loading, user } = useAuth();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
 
   if (user) {
     return <Navigate to="/" />;

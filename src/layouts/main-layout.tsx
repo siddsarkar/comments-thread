@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { useAuth } from "@/context/AuthContext";
 import { Newspaper } from "lucide-react";
 import { Link, Outlet } from "react-router";
@@ -16,7 +17,10 @@ export default function MainLayout() {
             </div>
           </Link>
           {user ? (
-            <button onClick={logout}>Logout ({user.username})</button>
+            <div className="flex items-center gap-2">
+              <Link to="/profile">({user.username})</Link> |
+              <button onClick={logout}>logout</button>
+            </div>
           ) : (
             <button>Login</button>
           )}
@@ -25,6 +29,7 @@ export default function MainLayout() {
 
       <main>
         <Outlet />
+        <Toaster />
       </main>
     </>
   );

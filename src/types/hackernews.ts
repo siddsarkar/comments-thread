@@ -18,7 +18,7 @@ export interface UserProfile {
   id: string;
   email: string;
   username: string;
-  bio: string;
+  bio?: string;
   karma: number;
   profile_picture: string;
   comments: number[];

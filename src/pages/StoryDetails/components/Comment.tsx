@@ -53,14 +53,19 @@ export const Comment = (props: {
               <div className="flex-shrink-0 py-2">
                 <User size={16} />
               </div>
-              <span className="font-medium">
-                {state.deleted.get()
-                  ? "[deleted]"
-                  : state.dead.get()
-                  ? "[dead]"
-                  : state.by.get()}
-                {/* {new Date().toISOString()} */}
-              </span>
+              <Link
+                to={`/profile/${state.by.get()}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <span className="font-medium">
+                  {state.deleted.get()
+                    ? "[deleted]"
+                    : state.dead.get()
+                    ? "[dead]"
+                    : state.by.get()}
+                  {/* {new Date().toISOString()} */}
+                </span>
+              </Link>
               <span>•</span>
               <span>{formattedDate(state.time.get())}</span>
             </div>

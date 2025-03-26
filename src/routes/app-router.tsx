@@ -26,11 +26,20 @@ const routes = createBrowserRouter([
           },
           {
             path: "new",
-            element: <Create />,
+            element: <Create key="new-post" />,
           },
           {
             path: "profile",
-            element: <Profile />,
+            children: [
+              {
+                index: true,
+                element: <Profile key="profile" />,
+              },
+              {
+                path: ":uid",
+                element: <Profile key="uid-profile" />,
+              },
+            ],
           },
         ],
       },
@@ -39,7 +48,7 @@ const routes = createBrowserRouter([
         children: [
           {
             path: "new",
-            element: <Create />,
+            element: <Create key="new-reply" />,
           },
           {
             path: ":commentId?",

@@ -32,12 +32,6 @@ const replyFormSchema = z.object({
     message: "Username must be at least 2 characters.",
   }),
 });
-const storyFormSchema = z.object({
-  url: z.string().url().nonempty(),
-  title: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-});
 
 export function ReplyForm({ parentId }: { parentId: string }) {
   const { user } = useAuth();
@@ -151,6 +145,13 @@ export function ReplyForm({ parentId }: { parentId: string }) {
     </div>
   );
 }
+
+const storyFormSchema = z.object({
+  url: z.string().url().nonempty(),
+  title: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
 
 export function StoryForm() {
   const { user } = useAuth();

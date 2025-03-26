@@ -59,7 +59,7 @@ export const Story: React.FC<StoryProps> = memo((props) => {
 
         // Update the score in the local state
         scoreState.set(result.snapshot.val().score);
-        setVotes(result.snapshot.val().votes);
+        setVotes(result.snapshot.val().votes || {});
         // votesState.set(result.snapshot.val().votes);
       })
       .finally(() => {
