@@ -23,7 +23,7 @@ const formSchema = z.object({
   }),
 });
 
-export function ProfileForm() {
+export default function ProfileForm() {
   const { user, setUser } = useAuth();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({

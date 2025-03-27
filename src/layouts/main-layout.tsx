@@ -3,7 +3,7 @@ import { useAuth } from "@/context/AuthContext";
 import { Newspaper } from "lucide-react";
 import { Link, Outlet } from "react-router";
 
-export default function MainLayout() {
+export function MainLayout() {
   const { user, logout } = useAuth();
 
   return (

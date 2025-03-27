@@ -33,7 +33,7 @@ const replyFormSchema = z.object({
   }),
 });
 
-export function ReplyForm({ parentId }: { parentId: string }) {
+function ReplyForm({ parentId }: { parentId: string }) {
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -139,7 +139,9 @@ export function ReplyForm({ parentId }: { parentId: string }) {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
@@ -153,7 +155,7 @@ const storyFormSchema = z.object({
   }),
 });
 
-export function StoryForm() {
+function StoryForm() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
@@ -260,7 +262,9 @@ export function StoryForm() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button disabled={form.formState.isSubmitting} type="submit">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>

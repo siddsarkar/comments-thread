@@ -11,4 +11,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+
+  // split firebase chunks
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          firebase: ["firebase/app", "firebase/auth", "firebase/database"],
+        },
+      },
+    },
+  },
 });

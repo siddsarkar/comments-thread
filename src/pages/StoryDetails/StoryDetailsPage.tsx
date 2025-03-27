@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { Comments } from "./components/Comments";
 import { Story } from "./components/Story";
 
-export const StoryDetailsPage = () => {
+const StoryDetailsPage = () => {
   const { storyId } = useParams();
   const navigate = useNavigate();
 
@@ -58,3 +58,5 @@ export const StoryDetailsPage = () => {
     </div>
   );
 };
+
+export default StoryDetailsPage;

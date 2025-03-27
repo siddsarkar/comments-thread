@@ -98,7 +98,7 @@ const profileFormSchema = z.object({
   bio: z.string().optional(),
 });
 
-export function ProileForm({
+function ProileForm({
   profile,
   isPublic,
 }: {
@@ -138,6 +138,7 @@ export function ProileForm({
       isUpdatingProfileState.set(true);
       update(ref(db), updates)
         .then(() => {
+          form.reset();
           toast.success("Profile updated successfully!");
         })
         .catch((err) => {
@@ -200,9 +201,14 @@ export function ProileForm({
               </FormItem>
             )}
           />
-          <Button disabled={isUpdatingProfileState.get()} type="submit">
-            Submit
-          </Button>
+          {!isPublic && (
+            <Button
+              disabled={isUpdatingProfileState.get() || !form.formState.isDirty}
+              type="submit"
+            >
+              Submit
+            </Button>
+          )}
         </form>
       </Form>
     </div>
@@ -241,7 +247,7 @@ const fetchProfileByUsername = (
 
 fetchProfileByUsername("admin");
 
-export const Profile = () => {
+const Profile = () => {
   const { user } = useAuth();
   const { uid } = useParams();
 
@@ -290,3 +296,5 @@ export const Profile = () => {
     </>
   );
 };
+
+export default Profile;

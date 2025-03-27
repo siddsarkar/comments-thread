@@ -20,33 +20,6 @@ async function fetchStories(storyIds: number[] = []): Promise<Item[]> {
   return stories;
 }
 
-export function TopStories() {
-  const fetchResource = () => fetchTopStories();
-  const state = useHookstate(fetchResource);
-
-  if (state.promised) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div>Loading...</div>
-      </div>
-    );
-  }
-
-  if (state.error) {
-    return (
-      <p>
-        Failed to load top stories
-        <br />
-        <code style={{ color: "red" }}>{state.error.toString()}</code>
-        <br />
-        <button onClick={() => state.set(fetchResource)}>Retry</button>
-      </p>
-    );
-  }
-
-  return <Stories storyIds={state.value.map((id) => id)} />;
-}
-
 function Stories({ storyIds }: { storyIds: number[] }) {
   const navigate = useNavigate();
 
@@ -185,4 +158,31 @@ function Stories({ storyIds }: { storyIds: number[] }) {
       </div>
     </div>
   );
+}
+
+export default function TopStories() {
+  const fetchResource = () => fetchTopStories();
+  const state = useHookstate(fetchResource);
+
+  if (state.promised) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
+  if (state.error) {
+    return (
+      <p>
+        Failed to load top stories
+        <br />
+        <code style={{ color: "red" }}>{state.error.toString()}</code>
+        <br />
+        <button onClick={() => state.set(fetchResource)}>Retry</button>
+      </p>
+    );
+  }
+
+  return <Stories storyIds={state.value.map((id) => id)} />;
 }

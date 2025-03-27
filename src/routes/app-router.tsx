@@ -1,12 +1,19 @@
-import MainLayout from "@/layouts/main-layout";
-import Create from "@/pages/Create";
-import { ProfileForm } from "@/pages/CreateUser";
-import Login from "@/pages/Login";
-import { Profile } from "@/pages/Profile";
-import { TopStories } from "@/pages/Stories";
-import { StoryDetailsPage } from "@/pages/StoryDetails/StoryDetailsPage";
+import { Loadable } from "@/components/loadable";
+import { MainLayout } from "@/layouts/main-layout";
+// import { ProfileForm } from "@/pages/CreateUser";
+// import { Profile } from "@/pages/Profile";
+// import { StoryDetailsPage } from "@/pages/StoryDetails/StoryDetailsPage";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import ProtectedRoute from "./protected-route";
+import { ProtectedRoute } from "./protected-route";
+
+const StoriesPage = Loadable(() => import("@/pages/Stories"));
+const StoryDetailsPage = Loadable(
+  () => import("@/pages/StoryDetails/StoryDetailsPage")
+);
+const CreateItemPage = Loadable(() => import("@/pages/Create"));
+const LoginPage = Loadable(() => import("@/pages/Login"));
+const ProfilePage = Loadable(() => import("@/pages/Profile"));
+const UserOnboardingPage = Loadable(() => import("@/pages/CreateUser"));
 
 const routes = createBrowserRouter([
   {
@@ -22,22 +29,22 @@ const routes = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <TopStories />,
+            element: <StoriesPage />,
           },
           {
             path: "new",
-            element: <Create key="new-post" />,
+            element: <CreateItemPage key="new-story" />,
           },
           {
             path: "profile",
             children: [
               {
                 index: true,
-                element: <Profile key="profile" />,
+                element: <ProfilePage key="profile" />,
               },
               {
                 path: ":uid",
-                element: <Profile key="uid-profile" />,
+                element: <ProfilePage key="uid-profile" />,
               },
             ],
           },
@@ -48,7 +55,7 @@ const routes = createBrowserRouter([
         children: [
           {
             path: "new",
-            element: <Create key="new-reply" />,
+            element: <CreateItemPage key="new-reply" />,
           },
           {
             path: ":commentId?",
@@ -60,14 +67,14 @@ const routes = createBrowserRouter([
   },
   {
     path: "/create-username",
-    element: <ProfileForm />,
+    element: <UserOnboardingPage />,
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <LoginPage />,
   },
 ]);
 
-export default function AppRouter() {
+export function AppRouter() {
   return <RouterProvider router={routes} />;
 }
