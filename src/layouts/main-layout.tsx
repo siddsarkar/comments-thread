@@ -13,12 +13,13 @@ export function MainLayout() {
           <Link to="/">
             <div className="flex items-center gap-2">
               <Newspaper />
-              <h1 className="text-xl font-bold">HNR</h1>
+              <h1 className="text-sm font-bold">HNR</h1>
             </div>
           </Link>
           {user ? (
-            <div className="flex items-center gap-2">
-              <Link to="/profile">({user.username})</Link> |
+            <div className="flex items-center gap-2 text-xs">
+              <Link to="/profile">profile — {user.username}</Link> |
+              <Link to="/new">new</Link> |
               <button onClick={logout}>logout</button>
             </div>
           ) : (

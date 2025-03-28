@@ -11,7 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/context/AuthContext";
-import { fetchItem, fetchProfile } from "@/services/hackernews-api";
+import {
+  fetchItem,
+  fetchProfile,
+  fetchProfileByUsername,
+} from "@/services/hackernews-api";
 import { UserProfile } from "@/types/hackernews";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -20,16 +24,7 @@ import {
   suspend,
   useHookstate,
 } from "@hookstate/core";
-import {
-  equalTo,
-  get,
-  getDatabase,
-  orderByChild,
-  query,
-  ref,
-  runTransaction,
-  update,
-} from "firebase/database";
+import { getDatabase, ref, runTransaction, update } from "firebase/database";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { toast } from "sonner";
@@ -214,38 +209,6 @@ function ProileForm({
     </div>
   );
 }
-
-const fetchProfileByUsername = (
-  username: string
-): Promise<UserProfile | null | undefined> => {
-  return new Promise((resolve) => {
-    const db = getDatabase();
-    const userQuery = query(
-      ref(db, "users"),
-      orderByChild("username"),
-      equalTo(username)
-    );
-
-    get(userQuery)
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-          snapshot.forEach((childSnapshot) => {
-            const user = childSnapshot.val();
-            console.log("User found", user);
-            resolve(user);
-          });
-        } else {
-          resolve(null);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        resolve(null);
-      });
-  });
-};
-
-fetchProfileByUsername("admin");
 
 const Profile = () => {
   const { user } = useAuth();

@@ -4,9 +4,8 @@ import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { fetchItem, fetchTopStories } from "@/services/hackernews-api";
 import { Item } from "@/types/hackernews";
 import { suspend, useHookstate } from "@hookstate/core";
-import { Plus } from "lucide-react";
 import { useCallback } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { Story } from "./StoryDetails/components/Story";
 
 const INITIAL_ITEMS = 2;
@@ -117,20 +116,20 @@ function Stories({ storyIds }: { storyIds: number[] }) {
     <div className="max-w-2xl mx-auto">
       <header>
         <div className="max-w-4xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
             <div className=""></div>
-            {/* <Link to="/">
+            <Link to="/">
               <div className="flex items-center gap-2">
                 <Newspaper />
                 <h1 className="text-xl font-bold">HNR</h1>
               </div>
-            </Link> */}
+            </Link>
             <Link to="/new">
               <div className="flex items-center gap-2">
                 <Plus />
               </div>
             </Link>
-          </div>
+          </div> */}
         </div>
       </header>
 

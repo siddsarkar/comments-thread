@@ -18,6 +18,7 @@ export interface UserProfile {
   id: string;
   email: string;
   username: string;
+  created?: number;
   bio?: string;
   karma: number;
   profile_picture: string;

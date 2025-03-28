@@ -46,7 +46,9 @@ export const Comments = memo(({ kids }: { kids: ImmutableArray<number> }) => {
       <br />
       <button onClick={() => state.set(fetchResource)}>Reload</button>
       <br /> */}
-      <CommentThread nodes={state} />
+      <div className="space-y-2">
+        <CommentThread nodes={state} />
+      </div>
       {hasMore && (
         <div className="pb-4">
           <button

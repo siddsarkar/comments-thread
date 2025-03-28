@@ -52,6 +52,7 @@ export default function ProfileForm() {
         set(userRef, {
           ...snapshot.val(),
           username: values.username,
+          created: Date.now(),
         }).then(() => {
           setUser({
             ...user,

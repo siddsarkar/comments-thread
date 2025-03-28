@@ -53,7 +53,9 @@ const StoryDetailsPage = () => {
       >
         <Story story={state.value} onCommentClick={handleCommentClick} />
       </div>
-      <Comments kids={state.kids.value ?? []} />
+      <div className="space-y-2">
+        <Comments kids={state.kids.value ?? []} />
+      </div>
       <br />
     </div>
   );

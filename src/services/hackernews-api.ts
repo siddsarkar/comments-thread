@@ -1,5 +1,13 @@
 import { Item, UserProfile } from "@/types/hackernews";
 import axios from "axios";
+import {
+  equalTo,
+  get,
+  getDatabase,
+  orderByChild,
+  query,
+  ref,
+} from "firebase/database";
 
 const api = axios.create({
   baseURL:
@@ -19,4 +27,34 @@ export async function fetchTopStories(): Promise<number[]> {
 export async function fetchProfile(uid: string): Promise<UserProfile> {
   const response = await api.get(`/users/${uid}.json`);
   return response.data;
+}
+
+export async function fetchProfileByUsername(
+  username: string
+): Promise<UserProfile | null | undefined> {
+  return new Promise((resolve) => {
+    const db = getDatabase();
+    const userQuery = query(
+      ref(db, "users"),
+      orderByChild("username"),
+      equalTo(username)
+    );
+
+    get(userQuery)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          snapshot.forEach((childSnapshot) => {
+            const user = childSnapshot.val();
+            console.log("User found", user);
+            resolve(user);
+          });
+        } else {
+          resolve(null);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        resolve(null);
+      });
+  });
 }
