@@ -1,9 +1,10 @@
 import { alpha, getColorForDepth } from "@/lib/color-utils";
 // import { Story } from "@/pages/StoryView";
+import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { fetchItem, fetchTopStories } from "@/services/hackernews-api";
 import { Item } from "@/types/hackernews";
 import { suspend, useHookstate } from "@hookstate/core";
-import { ChevronDown, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useCallback } from "react";
 import { Link, useNavigate } from "react-router";
 import { Story } from "./StoryDetails/components/Story";
@@ -29,7 +30,15 @@ function Stories({ storyIds }: { storyIds: number[] }) {
   const hasMoreState = useHookstate(storyIds.length > INITIAL_ITEMS);
   const isLoadingMoreState = useHookstate(false);
 
+  const [setElement] = useInfiniteScroll(() => {
+    if (hasMoreState.get() && !isLoadingMoreState.get()) {
+      onLoadMore();
+    }
+  });
+
   async function onLoadMore() {
+    console.log("Loading more stories...");
+
     isLoadingMoreState.set(true);
 
     try {
@@ -137,24 +146,25 @@ function Stories({ storyIds }: { storyIds: number[] }) {
             </div>
           ))}
 
-        {hasMoreState.get() && (
+        {hasMoreState.get() ? (
           <div className="pb-4">
             <button
               onClick={onLoadMore}
               disabled={isLoadingMoreState.get()}
               className="w-full py-3 px-4 flex items-center justify-center gap-2 cursor-pointer"
             >
-              {isLoadingMoreState.get() ? (
+              {isLoadingMoreState.get() && (
                 <span className="text-sm">Loading more comments...</span>
-              ) : (
-                <div className="flex items-center gap-1">
-                  <ChevronDown size={16} />
-                  <span className="text-sm">Load more</span>
-                </div>
               )}
             </button>
           </div>
+        ) : (
+          <div className="pb-4 flex justify-center items-center gap-2">
+            <span className="text-sm text-gray-500">No more stories</span>
+          </div>
         )}
+
+        {!isLoadingMoreState.get() && <div ref={setElement} className="pb-4" />}
       </div>
     </div>
   );
